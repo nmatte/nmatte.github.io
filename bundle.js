@@ -180,6 +180,23 @@
 	  }
 	};
 
+	Asteroid.prototype.breakUp = function () {
+	  var radius = this.game.normalizedRandom(this.radius);
+	  this.game.asteroids.push(new Asteroid( {
+	    pos: this.pos,
+	    game: this.game,
+	    radius: radius,
+	    vel: this.game.randomVelocity(radius * 1.5),
+	  } ));
+	  var radius2 = this.radius - radius;
+	  this.game.asteroids.push(new Asteroid( {
+	    pos: this.pos,
+	    game: this.game,
+	    radius: radius2,
+	    vel: this.game.randomVelocity(radius2 * 1.5),
+	  } ));
+	};
+
 	Asteroid.prototype.COLOR = "#000000";
 	Asteroid.prototype.RADIUS = 10;
 	Asteroid.prototype.VELOCITY = 5;
@@ -298,8 +315,11 @@
 
 	Game.prototype.randomVelocity = function (size) {
 	  var angle = Math.random() * Math.PI * 2;
-	  var magnitude = 3 + Math.random()*5;
+	  // var magnitude = 3 + Math.random()*5;
+	  var magnitude = this.normalizedRandom(4);
 	  magnitude = magnitude / ((size * size) / 100);
+
+	  magnitude = Math.min(magnitude, 4);
 
 	  return [magnitude * Math.cos(angle), magnitude * Math.sin(angle)];
 
@@ -310,6 +330,17 @@
 	  var a = 25;
 	  var b = 0.5;
 	  var c = 0.4;
+
+	  var size = a * Math.pow(Math.E, - (((x - b) * (x - b)) / (2 * (c * c))));
+
+	  return size;
+	};
+
+	Game.prototype.normalizedRandom = function(max, stdev) {
+	  var x = Math.random();
+	  var a = max ? max : 25;
+	  var b = 0.5;
+	  var c = stdev ? stdev : 0.4;
 
 	  var size = a * Math.pow(Math.E, - (((x - b) * (x - b)) / (2 * (c * c))));
 
@@ -844,20 +875,7 @@
 	  if (otherObject.constructor.name === "Asteroid") {
 	    this.game.remove(otherObject);
 	    if (otherObject.radius > 15) {
-	      var radius = otherObject.radius - 5;
-	      this.game.asteroids.push(new Asteroid( {
-	        pos: otherObject.pos,
-	        game: this.game,
-	        radius: radius,
-	        vel: this.game.randomVelocity(radius * 1.5),
-	      } ));
-	      var radius2 = otherObject.radius - radius;
-	      this.game.asteroids.push(new Asteroid( {
-	        pos: otherObject.pos,
-	        game: this.game,
-	        radius: radius,
-	        vel: this.game.randomVelocity(radius * 1.5),
-	      } ));
+	      otherObject.breakUp();
 	    }
 	    this.game.remove(this);
 	  }
