@@ -213,11 +213,13 @@
 
 	Game.prototype.addAsteroids = function () {
 	  for (var i = 0; i < this.NUM_ASTEROIDS; i++) {
+	    var radius = this.randomSize();
 	    this.asteroids.push(
 	      new Asteroid( {
 	        pos: this.randomPosition(),
 	        game: this,
-	        vel: this.randomVelocity()
+	        radius: radius,
+	        vel: this.randomVelocity(radius),
 	       } )
 	    );
 	  }
@@ -234,20 +236,12 @@
 	  for (var i = 0; i < this.allObjects().length; i++) {
 	    for (var j = 0; j < this.allObjects().length; j++) {
 	      if (i !== j) {
-	        if (this.allObjects()[i].isCollidedWithOtherObject(this.allObjects()[j])) {
-
+	        if (this.allObjects()[i] && this.allObjects()[i].isCollidedWithOtherObject(this.allObjects()[j])) {
 	          this.allObjects()[i].collideWith(this.allObjects()[j]);
-	          // collisions.push([this.asteroids[i], this.asteroids[j]]);
 	        }
 	      }
 	    }
 	  }
-
-	  // for (var i = 0; i < collisions.length; i++) {
-	  //   var pair = collisions[i];
-	  //   pair[0].collideWith(pair[1]);
-	  // }
-
 	};
 
 	Game.prototype.remove = function (obj) {
@@ -302,12 +296,24 @@
 	  return [Math.random() * this.DIM_X, Math.random() * this.DIM_Y ];
 	};
 
-	Game.prototype.randomVelocity = function () {
+	Game.prototype.randomVelocity = function (size) {
 	  var angle = Math.random() * Math.PI * 2;
 	  var magnitude = 3 + Math.random()*5;
+	  magnitude = magnitude / ((size * size) / 100);
 
 	  return [magnitude * Math.cos(angle), magnitude * Math.sin(angle)];
 
+	};
+
+	Game.prototype.randomSize = function () {
+	  var x = Math.random();
+	  var a = 25;
+	  var b = 0.5;
+	  var c = 0.4;
+
+	  var size = a * Math.pow(Math.E, - (((x - b) * (x - b)) / (2 * (c * c))));
+
+	  return size;
 	};
 
 	module.exports = Game;
@@ -453,24 +459,44 @@
 	GameView.prototype.start = function () {
 	  this.setupKeys();
 	  var view = this;
-	  setInterval(function () {
+
+	  var step = function () {
+	    view.checkKeys();
 	    view.game.moveObjects();
 	    view.game.checkCollisions();
 	    view.game.draw(view.ctx);
-	  });
+
+	    requestAnimationFrame(step);
+
+	  };
+
+	  requestAnimationFrame(step);
+	};
+
+	GameView.prototype.checkKeys = function () {
+	  if (key.isPressed('left')) {
+	    this.game.ship.turn(-Math.PI/32);
+	  }
+	  if (key.isPressed('right')) {
+	    this.game.ship.turn(Math.PI/32);
+	  }
+
+	  if (key.isPressed('up')) {
+	    this.game.ship.power(0.3);
+	  }
 	};
 
 	GameView.prototype.setupKeys = function () {
 	  var ship = this.game.ship;
-	  key('left',function () {
-	    ship.turn(-Math.PI/4);
-	  });
-	  key('right', function () {
-	    ship.turn(Math.PI/4);
-	  });
-	  key('up', function() {
-	    ship.power(1);
-	  });
+	  // key('left',function () {
+	  //   ship.turn(-Math.PI/4);
+	  // });
+	  // key('right', function () {
+	  //   ship.turn(Math.PI/4);
+	  // });
+	  // key('up', function() {
+	  //   ship.power(1);
+	  // });
 	  key('space', function () {
 	    ship.fireBullet();
 	  });
@@ -787,7 +813,7 @@
 
 	var MovingObject = __webpack_require__(1);
 	var Util = __webpack_require__(2);
-
+	var Asteroid = __webpack_require__(3);
 	function Bullet (options) {
 
 	    if (!options['radius']) {
@@ -817,6 +843,22 @@
 	Bullet.prototype.collideWith = function (otherObject) {
 	  if (otherObject.constructor.name === "Asteroid") {
 	    this.game.remove(otherObject);
+	    if (otherObject.radius > 10) {
+	      var radius = otherObject.radius / 2;
+	      this.game.asteroids.push(new Asteroid( {
+	        pos: otherObject.pos,
+	        game: this.game,
+	        radius: radius,
+	        vel: this.game.randomVelocity(radius * 4),
+	      } ));
+
+	      this.game.asteroids.push(new Asteroid( {
+	        pos: otherObject.pos,
+	        game: this.game,
+	        radius: radius,
+	        vel: this.game.randomVelocity(radius * 4),
+	      } ));
+	    }
 	    this.game.remove(this);
 	  }
 	};
