@@ -1622,7 +1622,7 @@
 	}
 
 	body {
-		background: #312450;
+		background: #0055A6;
 	}
 
 		body.is-loading *, body.is-loading *:before, body.is-loading *:after {
@@ -1640,7 +1640,7 @@
 
 	body, input, select, textarea {
 		color: rgba(255, 255, 255, 0.55);
-		font-family: Arial, Helvetica, sans-serif;
+		font-family: Arial, Helvetica, serif;
 		font-size: 16.5pt;
 		font-weight: normal;
 		line-height: 1.75;
@@ -1721,10 +1721,10 @@
 		}
 
 			h1.major:after {
-				background-image: -moz-linear-gradient(to right, #5e42a6, #b74e91);
-				background-image: -webkit-linear-gradient(to right, #5e42a6, #b74e91);
-				background-image: -ms-linear-gradient(to right, #5e42a6, #b74e91);
-				background-image: linear-gradient(to right, #5e42a6, #b74e91);
+				background-image: -moz-linear-gradient(to right, #00A5E5, #FEBB36);
+				background-image: -webkit-linear-gradient(to right, #00A5E5, #FEBB36);
+				background-image: -ms-linear-gradient(to right, #00A5E5, #FEBB36);
+				background-image: linear-gradient(to right, #00A5E5, #FEBB36);
 				-moz-transition: max-width 0.2s ease;
 				-webkit-transition: max-width 0.2s ease;
 				-ms-transition: max-width 0.2s ease;
@@ -1976,7 +1976,7 @@
 		button.special,
 		.button.special {
 			background-color: #ffffff;
-			color: #312450 !important;
+			color: #0055A6 !important;
 		}
 
 			input[type="submit"].special:after,
@@ -2406,7 +2406,7 @@
 		}
 
 	select option {
-		background-color: #312450;
+		background-color: #0055A6;
 		color: #ffffff;
 	}
 
@@ -2482,7 +2482,7 @@
 		input[type="radio"]:checked + label:before {
 			background: #ffffff;
 			border-color: #ffffff;
-			color: #b74e91;
+			color: #FEBB36;
 			content: '\f00c';
 		}
 
@@ -2552,7 +2552,7 @@
 			display: block;
 			background: #ffffff;
 			border-radius: 100%;
-			color: #312450;
+			color: #0055A6;
 			text-align: center;
 			line-height: 2.5em;
 			margin: 0 0 1.3em 0;
@@ -2563,11 +2563,11 @@
 			}
 
 				.wrapper.style1 .icon.major:before {
-					color: #5e42a6;
+					color: #00A5E5;
 				}
 
 				.wrapper.style1-alt .icon.major:before {
-					color: #493382;
+					color: #829BFF;
 				}
 
 				.wrapper.style2 .icon.major:before {
@@ -2579,7 +2579,7 @@
 				}
 
 				.wrapper.style3 .icon.major:before {
-					color: #b74e91;
+					color: #FEBB36;
 				}
 
 				.wrapper.style3-alt .icon.major:before {
@@ -3253,11 +3253,11 @@
 		}
 
 		.wrapper.style1 {
-			background-color: #5e42a6;
+			background-color: #00A5E5;
 		}
 
 		.wrapper.style1-alt {
-			background-color: #493382;
+			background-color: #829BFF;
 		}
 
 		.wrapper.style2 {
@@ -3269,7 +3269,7 @@
 		}
 
 		.wrapper.style3 {
-			background-color: #b74e91;
+			background-color: #FEBB36;
 		}
 
 		.wrapper.style3-alt {
@@ -3380,7 +3380,7 @@
 		display: -webkit-flex;
 		display: -ms-flex;
 		display: flex;
-		background-color: #5e42a6;
+		background-color: #00A5E5;
 		cursor: default;
 		padding: 1.75em 2em;
 	}
@@ -3534,7 +3534,7 @@
 
 	#sidebar {
 		padding: 2.5em 2.5em 0.5em 2.5em ;
-		background: #312450;
+		background: #0055A6;
 		cursor: default;
 		height: 100vh;
 		left: 0;
@@ -3771,14 +3771,14 @@
 			}
 
 			#sidebar nav a:before {
-				background: #3c2c62;
+				background: #3278BA;
 			}
 
 			#sidebar nav a:after {
-				background-image: -moz-linear-gradient(to right, #5e42a6, #b74e91);
-				background-image: -webkit-linear-gradient(to right, #5e42a6, #b74e91);
-				background-image: -ms-linear-gradient(to right, #5e42a6, #b74e91);
-				background-image: linear-gradient(to right, #5e42a6, #b74e91);
+				background-image: -moz-linear-gradient(to right, #00A5E5, #FEBB36);
+				background-image: -webkit-linear-gradient(to right, #00A5E5, #FEBB36);
+				background-image: -ms-linear-gradient(to right, #00A5E5, #FEBB36);
+				background-image: linear-gradient(to right, #00A5E5, #FEBB36);
 				-moz-transition: max-width 0.2s ease;
 				-webkit-transition: max-width 0.2s ease;
 				-ms-transition: max-width 0.2s ease;
@@ -3867,7 +3867,7 @@
 
 						#sidebar nav a:after {
 							background-image: none;
-							background-color: #b74e91;
+							background-color: #FEBB36;
 						}
 
 		}
@@ -3884,7 +3884,7 @@
 
 	#intro {
 		background-attachment: fixed;
-		background-image: url("images/intro.svg");
+		background-image: url("images/yosemite.jpg");
 		background-position: top right;
 		background-repeat: no-repeat;
 		background-size: 100% 100%;
